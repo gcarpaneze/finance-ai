@@ -87,6 +87,9 @@ async function getDashboard(month: string) {
       _sum: {
         amount: true,
       },
+      orderBy: {
+        _sum: { amount: "desc" },
+      },
     })
   ).map((category) => ({
     category: category.category,
@@ -101,7 +104,7 @@ async function getDashboard(month: string) {
     orderBy: {
       date: "desc",
     },
-    take: 10,
+    take: 20,
   });
 
   return {

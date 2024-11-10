@@ -12,12 +12,12 @@ function ExpensesPerCategory({
   expensesPerCategory,
 }: ExpensesPercategoryProps) {
   return (
-    <ScrollArea className="col-span-2 h-full rounded-md pb-6">
-      <Card>
-        <CardHeader>
-          <CardTitle className="font-bold">Gastos por categoria</CardTitle>
-        </CardHeader>
+    <Card className="col-span-2 h-full overflow-hidden rounded-md">
+      <CardHeader>
+        <CardTitle className="font-bold">Gastos por categoria</CardTitle>
+      </CardHeader>
 
+      <ScrollArea className="h-full overflow-hidden">
         <CardContent className="space-y-6">
           {expensesPerCategory.map((category) => (
             <div key={category.category} className="space-y-1">
@@ -34,8 +34,8 @@ function ExpensesPerCategory({
             </div>
           ))}
         </CardContent>
-      </Card>
-    </ScrollArea>
+      </ScrollArea>
+    </Card>
   );
 }
 

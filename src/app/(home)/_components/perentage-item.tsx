@@ -9,8 +9,8 @@ interface PercentageItemProps {
 function PercentageItem({ icon, label, value }: PercentageItemProps) {
   return (
     <div className="itens center flex justify-between">
-      <div className="flex items-center gap-2">
-        {icon}
+      <div className="flex items-center gap-3">
+        <div className="rounded-md bg-white bg-opacity-[10%] p-2">{icon}</div>
         <p className="text-sm text-muted-foreground">{label}</p>
       </div>
       <p className="text-sm font-bold">{value}%</p>
