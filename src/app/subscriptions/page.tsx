@@ -1,6 +1,14 @@
 import Navbar from "@/components/navbar";
+import { auth } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
 
-export default function Page() {
+async function Page() {
+  const { userId } = await auth();
+
+  if (!userId) {
+    redirect("/sign-in");
+  }
+
   return (
     <>
       <Navbar />
@@ -8,3 +16,5 @@ export default function Page() {
     </>
   );
 }
+
+export default Page;
