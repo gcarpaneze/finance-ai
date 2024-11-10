@@ -1,4 +1,4 @@
-import { db } from "@/lib/prisma";
+import { db } from "./../lib/prisma";
 import { auth } from "@clerk/nextjs/server";
 import { TransactionCategory, TransactionType } from "@prisma/client";
 
@@ -77,12 +77,32 @@ async function getDashboard(month: string) {
     ),
   };
 
+  const totalExpensePerCategory: TotalExpensePerCategory[] = (
+    await db.transaction.groupBy({
+      by: ["category"],
+      where: {
+        ...where,
+        type: "EXPENSE",
+      },
+      _sum: {
+        amount: true,
+      },
+    })
+  ).map((category) => ({
+    category: category.category,
+    totalAmount: Number(category._sum.amount),
+    percentageOfTotal: Math.round(
+      (Number(category._sum.amount) / Number(expensesTotal)) * 100,
+    ),
+  }));
+
   return {
     depositsTotal,
     investimentsTotal,
     expensesTotal,
     balance,
     typesPercentage,
+    totalExpensePerCategory,
   };
 }
 
