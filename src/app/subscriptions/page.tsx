@@ -1,4 +1,4 @@
-import { auth } from "@clerk/nextjs/server";
+import { auth, clerkClient } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { CheckIcon, XIcon } from "lucide-react";
 import Navbar from "@/components/navbar";
@@ -11,8 +11,10 @@ async function Page() {
   if (!userId) {
     redirect("/sign-in");
   }
+  const user = (await clerkClient()).users.getUser(userId);
 
-  const hasPremiumPlan = false;
+  const hasPremiumPlan =
+    (await user).publicMetadata.subscriptionPlan === "premium";
 
   return (
     <>
