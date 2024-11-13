@@ -7,6 +7,7 @@ import Navbar from "@/components/navbar";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { userCanAddNewTransactions } from "@/utils/userCanAddTransactions";
 
 async function Page() {
   const { userId } = await auth();
@@ -21,6 +22,8 @@ async function Page() {
     },
   });
 
+  const userCanAddTransactions = await userCanAddNewTransactions();
+
   return (
     <>
       <Navbar />
@@ -29,7 +32,9 @@ async function Page() {
         <div className="flex w-full items-center justify-between">
           <h1 className="text-2xl font-bold">Transações</h1>
 
-          <AddTransactionButton />
+          <AddTransactionButton
+            userCanAddTransactions={userCanAddTransactions}
+          />
         </div>
 
         <ScrollArea>

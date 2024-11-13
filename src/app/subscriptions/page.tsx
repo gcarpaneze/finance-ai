@@ -5,6 +5,7 @@ import Navbar from "@/components/navbar";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import AquirePlanButton from "./_components/aquire-plan-button";
+import { getCurrentMonthTransactions } from "@/utils/get-current-month-transactions";
 
 async function Page() {
   const { userId } = await auth();
@@ -15,6 +16,10 @@ async function Page() {
 
   const hasPremiumPlan =
     (await user).publicMetadata.subscriptionPlan === "premium";
+
+  const currentMonthsTransactions = await getCurrentMonthTransactions({
+    userId,
+  });
 
   return (
     <>
@@ -37,7 +42,9 @@ async function Page() {
             <CardContent className="space-y-6 py-8">
               <div className="flex items-center gap-2">
                 <CheckIcon className="text-primary" />
-                <p>Apenas 10 transações por mês</p>
+                <p>
+                  Apenas 10 transações por mês ({currentMonthsTransactions}/10)
+                </p>
               </div>
               <div className="flex items-center gap-2">
                 <XIcon />
