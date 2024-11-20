@@ -9,6 +9,7 @@ import { getDashboard } from "@/data/get-dashboard";
 import ExpensesPerCategory from "./_components/expenses-per-category";
 import LastTransactions from "./_components/last-transactions";
 import IAReportsButton from "./_components/ia-report-button";
+import { userIsPremium } from "@/utils/user-is-premium";
 
 interface HomeProps {
   searchParams: {
@@ -33,6 +34,8 @@ async function Page({ searchParams: { month } }: HomeProps) {
 
   const data = await getDashboard(month);
 
+  const premiumPlan = await userIsPremium({ userId });
+
   return (
     <>
       <Navbar />
@@ -40,7 +43,7 @@ async function Page({ searchParams: { month } }: HomeProps) {
         <div className="flex justify-between">
           <h1 className="text-2xl font-bold">Dashboard</h1>
           <div className="flex items-center gap-2">
-            <IAReportsButton month={currentMonth} />
+            <IAReportsButton month={currentMonth} premiumPlan={premiumPlan} />
             <TimeSelect />
           </div>
         </div>

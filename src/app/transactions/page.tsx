@@ -7,7 +7,7 @@ import Navbar from "@/components/navbar";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { userCanAddNewTransactions } from "@/utils/userCanAddTransactions";
+import { userCanAddNewTransactions } from "@/utils/user-can-add-transactions";
 
 async function Page() {
   const { userId } = await auth();

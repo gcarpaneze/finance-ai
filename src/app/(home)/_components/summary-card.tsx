@@ -1,6 +1,6 @@
 import AddTransactionButton from "@/components/add-transaction-button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { userCanAddNewTransactions } from "@/utils/userCanAddTransactions";
+import { userCanAddNewTransactions } from "@/utils/user-can-add-transactions";
 import { ReactNode } from "react";
 
 interface SummaryCardProps {
